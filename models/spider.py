@@ -28,24 +28,43 @@ class Spider:
             return None
         return url_all
     # 爬取主要的信息
-    def get_title(self):
+    def get_info(self,filename):
         url = self.url
         self.get_soup(url)
-        # 完整的爬取所有的电影名称
-        # while (url is not None):
-        #     for ul in self.soup.find_all("span", class_="title"):
-        #         print(ul.string)
-        #     url = self.get_next_page()
-        #     if self.get_next_page() is None:
-        #         url = None
-        #     self.get_soup(url)
-        #     print(url)
-        #     time.sleep(1) 
-        # 测试爬取其他的信息，并转化成字典       
-    def get_movie_info(self):
-        pass
-    def get_movie_comment(self):
-        pass    
-a = Spider('https://movie.douban.com/top250')
-a.get_soup()
-a.get_title()
+        # 完整的爬取所有的信息
+        while (url is not None):
+            for ul in self.soup.find_all("div", class_="item"):
+                # 获取电影名称
+                title = ul.find("span", class_="title").string
+                # 获取电影评分
+                rating_num = ul.find("span", class_="rating_num").string
+                # 获取电影的短评
+                comment = ul.find("span", class_="inq")
+                # 处理没有短评的情况
+                if comment:
+                    comment = comment.string
+                # 获取电影的链接
+                link = ul.find("a").get("href")
+                # 获取电影的封面
+                cover = ul.find("img").get("src")
+                # 将其并列在一个数组里
+                movie = [title, rating_num, comment, link, cover]
+                # 将其转化成字典
+                movie_dict = dict(zip(["title", "rating_num", "comment", "link", "cover"], movie))
+                self.Savefile(filename,movie_dict)
+            url = self.get_next_page()
+            if self.get_next_page() is None:
+                url = None
+            self.get_soup(url)
+            # print(url)
+            time.sleep(1) # 休眠1秒，避免被封IP
+    def Savefile(self,filename,cotent):
+        # 将爬取到的信息保存到文件中    
+        with open(filename, "a+", encoding='utf-8') as f:
+            f.write(str(cotent)+"\n")
+            f.close()
+if __name__ == "__main__":
+
+    a = Spider('https://movie.douban.com/top250')
+    a.get_soup()
+    a.get_info("information/top250.txt")
