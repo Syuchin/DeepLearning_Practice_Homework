@@ -740,14 +740,16 @@ section {
 # Counts
 --------------------------------------------------------------*/
 .counts {
-  padding-bottom: 30px;
+  padding-bottom: 40px;
 }
 
 .counts .count-box {
   box-shadow: 0px 0 16px rgba(0, 0, 0, 0.1);
-  padding: 30px;
+  padding: 40px;
   background: #fff;
   margin-bottom: 30px;
+  /* 圆角 */
+  border-radius: 14px;
 }
 
 .counts .count-box i {
