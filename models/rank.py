@@ -12,6 +12,7 @@ class Rank:
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.188 Safari/537.36'
         }
+        # type to url type
         self.type = {"剧情":11, "喜剧":24, "动作":5, "爱情":13, "科幻":17, "动画":25, "悬疑":10, "惊悚":19, "恐怖":20, "纪录片":1, "短片":23, "情色":6, "音乐":14, "歌舞":7, "家庭":28, "儿童":8, "传记":2, "历史":4, "战争":22, "犯罪":3, "西部":27, "奇幻":16, "冒险":15, "灾难":12, "武侠":29, "古装":30, "运动":18, "黑色电影":31}
     # <a href="/typerank?type_name=剧情&type=11&interval_id=100:90&action=">剧情</a></span>
         self.INDEX_URL = 'https://movie.douban.com/j/chart/top_list?type={type}&interval_id=100%3A90&action=&start={offset}&limit={limit}'
@@ -70,7 +71,7 @@ class Rank:
         conn = sqlite3.connect(dbname) 
         print("Opened database successfully")
         c = conn.cursor()
-        # 如果表不存在，则创建表
+        # if table is not exist, create it
         if not c.execute("SELECT * FROM sqlite_master WHERE type='table' AND name='RANK'").fetchall():
             c.execute('''CREATE TABLE RANK
                 (RANK           TEXT    NOT NULL,
@@ -86,7 +87,7 @@ class Rank:
             print("Table already exists")
         conn.commit()
         conn.close()
-    # 将爬取到的信息存入数据库
+    # Save the data to the database
     def SaveDB(self,dbname,movie_dict):
         conn = sqlite3.connect(dbname)
         print("Opened database successfully")
