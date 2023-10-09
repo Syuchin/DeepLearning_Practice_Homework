@@ -39,8 +39,6 @@
 
       <div class="logo float-left">
         <h1 class="text-light"><a href="/index"><span>SYUCHIN</span></a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="temp.html"><img src="static/assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
 
       <nav class="nav-menu float-right d-none d-lg-block">
@@ -132,11 +130,10 @@
                 
             </form>
 
-          <!-- 展示结果 -->
           <table class="table table-striped">
             {% if type %}
             <tr>
-                <td>当前类别: {{type}}</td>
+                <td >当前类别:<a href="https://movie.douban.com/typerank?type_name=%{{type}}&type={{type_num}}&interval_id=100:90&action=">{{type}}(点击查看更多内容) </a></td>
             </tr>
             {% endif %}
             <tr> 
