@@ -3,7 +3,6 @@
 import requests
 from bs4 import BeautifulSoup
 import time
-from selenium import webdriver
 import logging
 import sqlite3  
 class Rank:
